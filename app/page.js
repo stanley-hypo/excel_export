@@ -45,6 +45,22 @@ export default function Page() {
 					</button>
 				</div>
 			</form>
+			<hr style={{ margin: '32px 0' }} />
+			<h1 style={{ margin: '0 0 16px', fontSize: 22 }}>Word → PDF</h1>
+			<form method="post" action="/api/word-to-pdf" encType="multipart/form-data" style={{ display: 'grid', gap: 12, maxWidth: 720 }}>
+				<div style={{ display: 'grid', gap: 8 }}>
+					<label htmlFor="docx" style={{ fontWeight: 600 }}>Word File (.docx)</label>
+					<input id="docx" name="docx" type="file" accept=".docx" required />
+					<div style={{ color: '#666', fontSize: 12, opacity: .9 }}>
+						This will convert your .docx to a PDF using HTML rendering. Visual fidelity may vary.
+					</div>
+				</div>
+				<div>
+					<button type="submit" style={{ padding: '10px 14px', fontWeight: 600, borderRadius: 8, border: '1px solid #999', cursor: 'pointer' }}>
+						Convert to PDF
+					</button>
+				</div>
+			</form>
 		</main>
 	);
 }
