@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Excel Merge</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 32px; }
+    h1 { margin: 0 0 16px; font-size: 22px; }
+    form { display: grid; gap: 12px; max-width: 720px; }
+    textarea { width: 100%; min-height: 200px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+    .row { display: grid; gap: 8px; }
+    label { font-weight: 600; }
+    input[type="file"] { padding: 6px 0; }
+    button { padding: 10px 14px; font-weight: 600; border-radius: 8px; border: 1px solid #999; cursor: pointer; }
+    button:hover { filter: brightness(1.1); }
+    small code { padding: 2px 6px; border-radius: 6px; background: #eee; }
+    .hint { color: #666; }
+    .sample { font-size: 12px; opacity: .9; }
+  </style>
+</head>
+<body>
+  <h1>Excel Merge ({{placeholder}})</h1>
+  <form method="post" action="/export" enctype="multipart/form-data" onsubmit="return validateForm()">
+    <div class="row">
+      <label for="json">JSON Data</label>
+      <textarea id="json" name="json" placeholder='{"name":"Stanley","total":123}'>
+{
+  "name": "Stanley",
+  "email": "stanley@example.com",
+  "order": {
+    "id": 1001,
+    "total": 199.99
+  }
+}
+      </textarea>
+      <div class="hint sample">Placeholders support dot/bracket paths, e.g. <code>{{name}}</code>, <code>{{order.id}}</code></div>
+    </div>
+    <div class="row">
+      <label for="template">Excel Template (.xlsx)</label>
+      <input id="template" name="template" type="file" accept=".xlsx" required />
+      <div class="hint">Put placeholders directly inside cells, like <code>{{name}}</code> or <code>{{order.total}}</code></div>
+    </div>
+    <div>
+      <button type="submit">Export</button>
+    </div>
+  </form>
+  <script>
+    function validateForm() {
+      const t = document.getElementById('json').value.trim();
+      if (!t) return true;
+      try { JSON.parse(t); return true; } catch (e) {
+        alert('JSON is invalid');
+        return false;
+      }
+    }
+  </script>
+</body>
+<!--
+ Template tips:
+ - Put {{name}} or {{order.total}} directly in cells
+ - The server replaces them with your JSON values and returns a new file
+-->
+
