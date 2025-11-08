@@ -1,11 +1,11 @@
-# Excel Merge (Node.js library + page)
+# Excel Merge (Next.js app + library)
 
-Replace `{{placeholders}}` in an Excel `.xlsx` template with JSON data (mail-merge style).
+Replace `{{placeholders}}` in an Excel `.xlsx` template with JSON data (mail-merge style). Now powered by Next.js App Router.
 
 ## Features
 - Read an Excel template and a JSON object
 - Replace placeholders like `{{name}}`, `{{order.total}}`, `{{items[0].price}}`
-- Simple web page to paste JSON, upload template, and download result
+- Web page (Next.js) to paste JSON, upload template, and download result
 
 ## Quick Start
 
@@ -14,12 +14,12 @@ Replace `{{placeholders}}` in an Excel `.xlsx` template with JSON data (mail-mer
 npm install
 ```
 
-2) Run the server:
+2) Run the Next.js dev server:
 ```bash
-npm run start
+npm run dev
 ```
 
-Open `http://localhost:3000` in your browser:
+Open `http://localhost:3000` in your browser and use the form on the home page:
 - Paste JSON into the textarea
 - Upload a `.xlsx` template containing placeholders like `{{name}}`
 - Click Export to download the merged file
@@ -59,8 +59,10 @@ await mergeExcelTemplate(template, data, {
   - `B3: Order Total: {{order.total}}`
 
 ## Scripts
-- `npm start` — start the Express server
-- `npm run dev` — start with nodemon (auto-reload)
+- `npm run dev` — start Next.js dev server
+- `npm run build` — build for production
+- `npm start` — start Next.js production server
+- `npm run merge` — run CLI example merge
 
 ## License
 MIT
